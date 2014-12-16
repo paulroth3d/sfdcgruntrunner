@@ -27,6 +27,7 @@ Grunt provides automation for repetitive tasks.  It can either execute those tas
 
 * A checkout of this project
 * A `package.json` file (such as the example below) at the base of your project to provide project configuration.
+* Running `npm install` (to load all the needed modules)
 * A `Gruntfile.js` file to include this tool and optionally adjust build settings.
 
 ### How do I checkout this project?
@@ -60,12 +61,16 @@ The sample Package.json file assumes that the static resource files are in the f
 
 **If that is not the case, update the 'sfdc-runner.resourcesPath' and 'sfdc-runner.resourceFolderPattern' as appropriate.**
 
+**Currently, after install, you will need to run `npm install` in the package directory for grunt to be available. Updating `NPM_PATH` doesn't appear to work correctly**
+
 ### Gruntfile.js
 
 Copy the Example-Gruntfile.js to the same directory as the Package.json file.
 
 You may need to update the line:<br />
 	`require( './path/to/grunt-sfdc-runner.js' )(grunt)` <br />
+	and<br />
+	`grunt.loadTasks( './path/to/tasks' );` <br />
 to the file within the checkout.
 
 ### Running the project:
@@ -111,8 +116,11 @@ to the file within the checkout.
 	/*global require, chalk, module*/
 	module.exports = function(grunt) {
 		
+		//-- update this to /path/to/tasks
+		grunt.loadTasks( '../sfdcgruntrunner/tasks' );
+		
 		//-- update this to /path/to/grunt-sfdc-runner.js
-		require( "./grunt-sfdc-runner.js" )(grunt);
+		require( "../sfdcgruntrunner/grunt-sfdc-runner.js" )(grunt);
 		
 		//-- override any configuration here as desired
 		//-- see 
@@ -157,4 +165,45 @@ pb_Foundation: {
 
 		}
 	}
+	
+<br /><br /><br /><hr /><br /><br />
+	
+
+### RELATED BONUS: How do I test local changes in visualforce without a deploy?
+
+**Impossible you say?**
+
+#### Requirements
+
+You need the following things:
+
+* [Proxly Chrome Extension](https://chrome.google.com/webstore/detail/proxly-extension/ijcjmpejonmimoofbcpaliejhikaeomh?hl=en)<br />Plugin that redirects URLs to a different URL.
+* [Proxly Chrome App](https://chrome.google.com/webstore/detail/proxly/denefdoofnkgjmpbfpknihpgdhahpblh?hl=en)<br />Defines the configuration for the Proxly Plugin
+* `npm install http-server`<br />Light-weight/zero-config https server
+
+#### Setup
+
+* After installing the App and the extension, open up Chrome to the app and configure it as follows:<br />Web Server URL: `https://localhost:8080/`<br />Match (leave as default): https.*/resource(/[0-9]+)?/([A-Za-z0-9-._]+)?/<br />Replace With: resources/$2_zip/<br />**Be sure to save**
+
+![setup](docs/img/proxlySetup1_app.png)
+
+* Open the plugin within Chrome, and you should see the config just made.<br />**Enable redirect, but disable server and LiveReload**
+
+![plugin](docs/img/proxlySetup2_plugin.png)
+
+* Navigate to the base directory and run the http-server npm program as follows (allowing us to use https locally)
+
+	`http-server -S -C ../sfdcgruntrunner/localhost.cert -K ../sfdcgruntrunner/localhost.key -a localhost`
+	
+	>Starting up http-server, serving ./ through https on: https://localhost:8080<br />
+	>Hit CTRL-C to stop the server
+
+* You will now need to allow your browser to connect to https://localhost:8080 - at least once, and click 'continue to https://localhost:8080'<br />**(Otherwise you'll get 'Failed to load resource: net::ERR_INSECURE_RESPONSE' errors)**
+
+* Finally, navigate to a page in salesforce using a static resource, notice the URLs are different. Changing the files locally are immediately reflected within SalesForce.
+
+![Local change](docs/img/proxlySetup3_localChange.png)
+
+
+
 
