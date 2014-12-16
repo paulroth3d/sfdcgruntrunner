@@ -1,0 +1,48 @@
+{
+  "name": "[YOUR PROJECT NAME]",
+  "version": "1.0.0",
+  
+  "description": "[Description of your project]",
+  
+  "devDependencies": {
+    "grunt-ant-sfdc": "^0.2.6",
+    "grunt-contrib-clean": "^0.6.0",
+    "grunt-contrib-compress": "^0.12.0",
+    "grunt-contrib-concat": "^0.5.0",
+    "grunt-contrib-copy": "^0.7.0",
+    "grunt-contrib-jshint": "^0.10.0",
+    "grunt-contrib-uglify": "^0.6.0",
+    "grunt-contrib-watch": "^0.6.1"
+  },
+  
+  "sfdc_runner": {
+  	 
+  	 "_comment": "-- Folder where the extracted static resources are found",
+  	 
+  	 "resourcesPath": "resources",
+  	 
+  	 "_comment": "--regular expression used to determine the folder used as exploded static resource",
+  	 "_comment": "-- this allows us to determine whether the file changed actually belongs to a static resource or not",
+  	 "_comment": "-- the following assumes the folders found within resources are",
+  	 
+  	 "resourceFolderPattern": "resources/([\\w_ ]+)/",
+  	 
+  	 "_comment": "-- list of resources with their minification file, and path",
+  	 "_comment": "-- USE [RESOURCE] within the minification file path to use the name of the resource",
+  	 "_comment": "-- EX: [RESOURCE]-min.js could provide resources/pb_Foundation_zip/pb_Foundation-zip.js",
+  	 
+  	 "concat": {
+  	    
+  	 	"_comment": "EX:",
+  	    "_comment": "pb_Foundation: {",
+  	    "_comment": "js/foundation-min.js : [js/foundation/**/*.js],",
+  	    "_comment": "js/vendor-min.js : [js/vendor/**/*.js]",
+  	    "_comment": "}",
+  	    
+  	    "pb_Foundation": {
+  	    	"js/foundation-min.js" : ["js/foundation/**/*.js"],
+  	    	"js/vendor-min.js" : ["js/vendor/**/*.js"]
+  	    }
+  	 }
+  }
+}
