@@ -1,0 +1,3 @@
+resources/pb_Foundation_zip/js/vendor/**/*.js
+resources/pb_Foundation_zip/js/foundation/**/*.js
+resources/pb_Foundation_zip/js/foundation.min.js
