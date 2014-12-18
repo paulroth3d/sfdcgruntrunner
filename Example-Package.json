@@ -33,6 +33,8 @@
   	 
   	 "concat": {
   	    
+  	 	"_comment": "resource_name : { '/path/to/minified-file.js' : [ '/included first/**/*.js', 'included/second/**/*.js' ] }",
+  	 	
   	 	"_comment": "EX:",
   	    "_comment": "pb_Foundation: {",
   	    "_comment": "js/foundation-min.js : [js/foundation/**/*.js],",
