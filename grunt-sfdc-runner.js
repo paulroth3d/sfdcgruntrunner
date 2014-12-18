@@ -71,13 +71,14 @@ module.exports = function(grunt){
 					jQuery: true,
 					console: true,
 					module: true,
-					document: true,
+					document: true
 					
 					//-- defaults to ignoring any files under the vendor folder
 					//-- to add in additional ignores, create a new file named
 					//-- .jshintignore
 					//-- with the paths (or patterns) of files that should be ignored
-					ignores: ['*/**/vendor/**/*.js']
+					//-- the following are applied manually within the custom task
+					//ignores: ['vendor/**/*.js','bower_components/**/*.js']
 				}
 			},
 			build: []
