@@ -47,6 +47,7 @@ module.exports = function(grunt){
 				
 				//-- remove _zip from the end of the resource name, to provide a clearer resourceName
 				this.resourceName = this.resourceFullName.replace( /_zip$/,'' );
+				this.resourceName = this.resourceFullName.replace( /\.resource$/,'' );
 				
 				this.resourcePath = this.filePath.substr(0,filePath.indexOf(this.resourceName));
 			}
