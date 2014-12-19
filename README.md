@@ -83,7 +83,7 @@ to the file within the checkout.
 ### Sample Package.json file
 
 	{
-	  "name": "[YOUR PROJECT NAME]",
+	  "name": "MyProject",
 	  "version": "1.0.0",
 	  
 	  "description": "[Description of your project]",
@@ -123,8 +123,16 @@ to the file within the checkout.
 		require( "../sfdcgruntrunner/grunt-sfdc-runner.js" )(grunt);
 		
 		//-- override any configuration here as desired
-		//-- see 
+		//-- see following for a list of jshint options - http://jshint.com/docs/options
+		//-- NOTE: the files combined and ordering are within the package.xml file
+		/** Example config setting.
 		grunt.config.merge({
+			"jshint":{
+				"options":{
+					node:true,
+					newcap:false
+				}
+			},
 			"uglify":{
 				sfdc_uglify: {
 					options: {
@@ -133,6 +141,7 @@ to the file within the checkout.
 				}
 			}
 		});
+		*/
 	};
 
 ### Configuring the Project
@@ -141,13 +150,21 @@ Configuration within your Package.json
 
 	"sfdc_runner": {
 		
-Folder where the extracted static resources are found
+Path to folder where the extracted static resources are found
+
+EX: for sfdcantprojects, this could be : 'resources'",
+EX: for mavensmate projects, this would likely be 'resource-bundles'",
 		
 		"resourcesPath": "resources",
 		
 regular expression used to determine the folder used as exploded static resource
 this allows us to determine whether the file changed actually belongs to a static resource or not
-the following assumes the folders found within resources are
+the following assumes the folders found within resources are.
+
+note: this would likely include the resourcesPath above
+
+EX - sfdcantprojects: resources/([^/]+)/
+EX - mavensmate     : resource-bundles/([^/]+)/
 		
 		"resourceFolderPattern": "resources/([\\w_ ]+)/",
 		

@@ -17,15 +17,21 @@
   
   "sfdc_runner": {
   	 
-  	 "_comment": "-- Folder where the extracted static resources are found",
+  	 "_comment": "-- Path to folder where the extracted static resources are found",
+  	 "_comment": "-- for sfdcantprojects, this would be 'resources'",
+  	 "_comment": "-- for mavensmate projects, this would likely be 'resource-bundles'",
   	 
   	 "resourcesPath": "resources",
   	 
   	 "_comment": "--regular expression used to determine the folder used as exploded static resource",
   	 "_comment": "-- this allows us to determine whether the file changed actually belongs to a static resource or not",
-  	 "_comment": "-- the following assumes the folders found within resources are",
+  	 "_comment": "-- note: this would likely include the resourcesPath above",
   	 
-  	 "resourceFolderPattern": "resources/([\\w_ ]+)/",
+  	 "_comment": "-- EX - sfdcantprojects: resources/([^/]+)/",
+  	 "_comment": "-- EX - mavensmate     : resource-bundles/([^/]+)/",
+  	 
+  	 
+  	 "resourceFolderPattern": "resources/([^/]+)/",
   	 
   	 "_comment": "-- list of resources with their minification file, and path",
   	 "_comment": "-- USE [RESOURCE] within the minification file path to use the name of the resource",
